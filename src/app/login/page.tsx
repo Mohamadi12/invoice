@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/globale/submit-button";
 import {
   Card,
   CardContent,
@@ -8,10 +8,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signIn } from "@/lib/auth";
-import React from "react";
+import { auth, signIn } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-const Login = () => {
+
+const Login = async() => {
+  const session = await auth();
+
+  if(session?.user) {
+    redirect('/dashboard')
+  }
+
   return (
     <>
       <div className="flex h-screen items-center justify-center px-4">
@@ -34,7 +41,7 @@ const Login = () => {
                 <Label>Email</Label>
                 <Input type="email" name="email" placeholder="test@gmail.com" />
               </div>
-              <Button>Submit</Button>
+              <SubmitButton />
             </form>
           </CardContent>
         </Card>
