@@ -11,12 +11,11 @@ import { Label } from "@/components/ui/label";
 import { auth, signIn } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-
-const Login = async() => {
+const Login = async () => {
   const session = await auth();
 
-  if(session?.user) {
-    redirect('/dashboard')
+  if (session?.user) {
+    redirect("/dashboard");
   }
 
   return (
@@ -41,7 +40,7 @@ const Login = async() => {
                 <Label>Email</Label>
                 <Input type="email" name="email" placeholder="test@gmail.com" />
               </div>
-              <SubmitButton />
+              <SubmitButton text="Login" />
             </form>
           </CardContent>
         </Card>

@@ -16,13 +16,34 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "@/lib/auth";
+import prisma from "@/lib/db";
+import { redirect } from "next/navigation";
 
+async function getUser(userId: string) {
+  const data = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      firstName: true,
+      lastName: true,
+      address: true,
+    },
+  });
+
+  if (!data?.firstName || !data.lastName || !data.address) {
+    redirect("/onboarding");
+  }
+}
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
 };
 const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
   const session = await userRequire();
+
+  const data = await getUser(session.user?.id as string)
+  
   return (
     <>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -93,7 +114,9 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
               </DropdownMenu>
             </div>
           </header>
-          <main className="flex flex-1 flex-col gap-5 p-4 lg:gap-6 lg:p-6">{children}</main>
+          <main className="flex flex-1 flex-col gap-5 p-4 lg:gap-6 lg:p-6">
+            {children}
+          </main>
         </div>
       </div>
     </>
