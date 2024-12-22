@@ -61,7 +61,7 @@ const InvoiceActions = ({ id }:iAppProps) => {
             <Mail className="size-4 mr-2" /> Reminder Email
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="">
+          <Link href={`/dashboard/invoices/${id}/delete`}>
             <Trash className="size-4 mr-2" /> Delete Invoice
           </Link>
         </DropdownMenuItem>
