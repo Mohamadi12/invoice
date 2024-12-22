@@ -140,6 +140,7 @@ const CreateInvoice = ({firstName, email, lastName, address}: iAppProps) => {
                   placeholder="Your Email"
                   name={fields.fromEmail.name}
                   key={fields.fromEmail.key}
+                  defaultValue={email}
                 />
                 <p className="text-red-500 text-sm">
                   {fields.fromEmail.errors}
