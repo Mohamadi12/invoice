@@ -30,12 +30,12 @@ const InvoiceActions = ({ id }:iAppProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/invoices/${id}`}>
+          <Link href={`/dashboard/invoices/${id}`} target="_blank">
             <Pencil className="size-4 mr-2" /> Edit Invoice
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="">
+          <Link href={`/api/invoice/${id}`}>
             <DownloadCloudIcon className="size-4 mr-2" /> Download Invoice
           </Link>
         </DropdownMenuItem>
