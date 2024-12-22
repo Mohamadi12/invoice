@@ -18,6 +18,7 @@ import {
 import { signOut } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { redirect } from "next/navigation";
+import { Toaster } from "sonner";
 
 async function getUser(userId: string) {
   const data = await prisma.user.findUnique({
@@ -119,6 +120,7 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
           </main>
         </div>
       </div>
+      <Toaster richColors closeButton theme="light"/>
     </>
   );
 };
