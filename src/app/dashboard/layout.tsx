@@ -4,7 +4,12 @@ import Logo from "@/../public/logo.png";
 import React from "react";
 import Image from "next/image";
 import { DashboardLinks } from "@/components/globale/dashboard-links";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, User2 } from "lucide-react";
 import {
@@ -19,6 +24,7 @@ import { signOut } from "@/lib/auth";
 import prisma from "@/lib/db";
 import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 async function getUser(userId: string) {
   const data = await prisma.user.findUnique({
@@ -43,8 +49,8 @@ type DashboardLayoutProps = {
 const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
   const session = await userRequire();
 
-  const data = await getUser(session.user?.id as string)
-  
+  const data = await getUser(session.user?.id as string);
+
   return (
     <>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -74,6 +80,9 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left">
+                <SheetTitle>
+                  <VisuallyHidden>Hello</VisuallyHidden>
+                </SheetTitle>
                 <nav className="grid gap-2 mt-10">
                   <DashboardLinks />
                 </nav>
@@ -120,7 +129,7 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
           </main>
         </div>
       </div>
-      <Toaster richColors closeButton theme="light"/>
+      <Toaster richColors closeButton theme="light" />
     </>
   );
 };
