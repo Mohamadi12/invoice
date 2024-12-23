@@ -2,9 +2,10 @@ import { DashboardBlocks } from "@/components/globale/dashboard-blocks";
 import { EmptyState } from "@/components/globale/empty-state";
 import { InvoiceGraph } from "@/components/globale/invoice-graph";
 import { RecentInvoices } from "@/components/globale/recent-invoices";
+import { Skeleton } from "@/components/ui/skeleton";
 import { userRequire } from "@/hooks/user-require";
 import prisma from "@/lib/db";
-import React from "react";
+import React, { Suspense } from "react";
 
 async function getData(userId: string) {
   const data = await prisma.invoice.findMany({
@@ -33,11 +34,13 @@ export default async function DashboardRoute() {
         />
       ) : (
         <>
+        <Suspense fallback={<Skeleton className="w-full h-full flex-1"/>}>
           <DashboardBlocks />
           <div className="grid gap-4 lg:grid-cols-3 md:gap-8">
             <InvoiceGraph />
             <RecentInvoices />
           </div>
+          </Suspense>
         </>
       )}
     </>
